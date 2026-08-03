@@ -1,0 +1,10 @@
+{
+  "name": "FluentAI - Universal AI Language Learning OS",
+  "description": "The #1 AI Language Learning & Real-Time Speaking Coach. Master English and 40+ languages natively from your mother tongue with instant voice pronunciation feedback, real-world AI roleplays, Duolingo & ELSA Speaking benchmark tests, streak rewards, and cloud progress sync. Try 7 days free today!",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
