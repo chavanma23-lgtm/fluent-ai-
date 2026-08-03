@@ -11,7 +11,6 @@ import { AdminDashboard } from './components/AdminDashboard';
 import { DocsViewerModal } from './components/DocsViewerModal';
 import { AccountModal } from './components/AccountModal';
 import { GooglePayModal } from './components/GooglePayModal';
-import { GmailPracticeHub } from './components/GmailPracticeHub';
 import { CommandPaletteModal } from './components/CommandPaletteModal';
 import { RewardMilestoneModal, MilestoneCelebrationData } from './components/RewardMilestoneModal';
 import { auth, loginWithGoogle, logoutUser, testConnection } from './lib/firebase';
@@ -85,7 +84,8 @@ export default function App() {
 
   const handleLogin = async () => {
     try {
-      await loginWithGoogle();
+      const res = await loginWithGoogle();
+      if (!res) return;
     } catch (err) {
       console.error("Login failed:", err);
     }
@@ -122,13 +122,6 @@ export default function App() {
         return <PracticeHub user={user} setUser={setUser} setActiveTab={setActiveTab} initialSubTab="skills" />;
       case 'community':
         return <PracticeHub user={user} setUser={setUser} setActiveTab={setActiveTab} initialSubTab="culture" />;
-      case 'gmail':
-        return (
-          <GmailPracticeHub
-            user={user}
-            onUpdateXP={(pts) => setUser(prev => ({ ...prev, xp: prev.xp + pts }))}
-          />
-        );
       case 'progress':
         return (
           <ProgressDashboard

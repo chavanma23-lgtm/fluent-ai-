@@ -4,13 +4,10 @@ import { getFirestore, doc, getDocFromServer } from 'firebase/firestore';
 import firebaseConfig from '../../firebase-applet-config.json';
 
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app, (firebaseConfig as any).firestoreDatabaseId);
+const dbId = (firebaseConfig as any).firestoreDatabaseId;
+export const db = dbId ? getFirestore(app, dbId) : getFirestore(app);
 export const auth = getAuth(app);
 export const googleAuthProvider = new GoogleAuthProvider();
-googleAuthProvider.addScope('https://www.googleapis.com/auth/gmail.readonly');
-googleAuthProvider.addScope('https://www.googleapis.com/auth/gmail.send');
-googleAuthProvider.addScope('https://www.googleapis.com/auth/gmail.compose');
-googleAuthProvider.addScope('https://www.googleapis.com/auth/gmail.labels');
 
 let cachedAccessToken: string | null = null;
 
@@ -30,7 +27,15 @@ export async function loginWithGoogle() {
       cachedAccessToken = credential.accessToken;
     }
     return { user: result.user, accessToken: credential?.accessToken || null };
-  } catch (error) {
+  } catch (error: any) {
+    if (
+      error?.code === 'auth/popup-closed-by-user' ||
+      error?.code === 'auth/cancelled-popup-request' ||
+      error?.code === 'auth/user-cancelled'
+    ) {
+      console.log('Google Sign-In popup was closed or cancelled by user.');
+      return null;
+    }
     console.error('Error signing in with Google:', error);
     throw error;
   }
@@ -96,8 +101,6 @@ export async function testConnection() {
   try {
     await getDocFromServer(doc(db, 'test', 'connection'));
   } catch (error) {
-    if (error instanceof Error && error.message.includes('the client is offline')) {
-      console.error('Please check your Firebase configuration.');
-    }
+    // Silent catch during startup test
   }
 }

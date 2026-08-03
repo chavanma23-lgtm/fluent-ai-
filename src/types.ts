@@ -2,7 +2,7 @@ export type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
 
 export type UserGoal = 'general' | 'business' | 'ielts' | 'travel' | 'interview' | 'social';
 
-export type NavTab = 'home' | 'speak' | 'practice' | 'simulators' | 'vocabulary' | 'skills' | 'community' | 'progress' | 'profile' | 'admin' | 'gmail';
+export type NavTab = 'home' | 'speak' | 'practice' | 'simulators' | 'vocabulary' | 'skills' | 'community' | 'progress' | 'profile' | 'admin';
 
 export interface SupportedLanguage {
   code: string; // BCP 47 code e.g. 'en-US', 'es-ES'

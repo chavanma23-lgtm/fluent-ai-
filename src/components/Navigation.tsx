@@ -4,8 +4,7 @@ import {
   Mic,
   Sparkles,
   BarChart3,
-  User,
-  Mail
+  User
 } from 'lucide-react';
 import { NavTab } from '../types';
 
@@ -20,7 +19,6 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, setActiveTab,
     { id: 'home' as NavTab, label: 'Home', icon: Home },
     { id: 'speak' as NavTab, label: 'Speak', icon: Mic, badge: 'Live' },
     { id: 'practice' as NavTab, label: 'Practice', icon: Sparkles },
-    { id: 'gmail' as NavTab, label: 'Gmail AI', icon: Mail, badge: 'OAuth' },
     { id: 'progress' as NavTab, label: 'Progress', icon: BarChart3 },
     { id: 'profile' as NavTab, label: 'Profile', icon: User }
   ];
